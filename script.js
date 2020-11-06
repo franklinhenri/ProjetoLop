@@ -15,10 +15,17 @@ by =300;
 contadorb = 0;
 var tela = 1; 
 var tempo = 0; 
+let img;
+let bg;
+
+function preload() {
+  img = loadImage('download.jpg');
+}
 
 
 function setup() {
   frameRate(30); 
+  bg = loadImage('floresta.jpg');
   createCanvas(400, 400);
   for (var i=0; i <inimigos; i++) { 
 	pix[i] = random(10,390);
@@ -84,9 +91,18 @@ function draw() {
 		}
 	}
     if(tela==2){
-  background(0);
+  background(bg);
   fill(250,250,250);
-  ellipse(jx, jy, raioj*2, raioj*2);
+  if (jy >= 320 & jy <= 380) {
+	image(img, jx-20, jy-20, raioj*2, raioj*2);
+  }
+  if (jy <= 320) {
+	image(img, jx-20, 300, raioj*2, raioj*2);
+  }
+  if (jy >= 380) {
+	image(img, jx-20, 360, raioj*2, raioj*2);
+  }
+  
   bx = bx - 3;
   if(bx<0){
   by = random(10, 390);
@@ -100,7 +116,7 @@ function draw() {
   	pix[i]=pix[i]-1*nivel; 
     if ( pix[i] < 0 ){ 
       pix[i] =  random(410,790);
-      piy[i] = random(20,380);
+      piy[i] = random(320,380);
     }
 }
   let d = int(dist(jx,jy,pix,piy));
@@ -128,7 +144,7 @@ function draw() {
 		}
 	}
 	if(dist( jx, jy , bx, by) <= raiob + raioj){
-	  by = random(0,400);
+	  by = random(320,380);
 	  bx = random(1000,4000);		
       vida=vida+1;
 	}
